@@ -718,7 +718,7 @@
   // Define probe X and Y positions for Z1, Z2 [, Z3 [, Z4]]
   // If not defined, probe limits will be used.
   // Override with 'M422 S<index> X<pos> Y<pos>'
-  #define Z_STEPPER_ALIGN_XY { { 35, 145 }, { 250,  155 } }
+  #define Z_STEPPER_ALIGN_XY { { 35, 145 }, { 260, 155 } }
 
   /**
    * Orientation for the automatically-calculated probe positions.
@@ -751,16 +751,16 @@
     // Define Stepper XY positions for Z1, Z2, Z3 corresponding to
     // the Z screw positions in the bed carriage.
     // Define one position per Z stepper in stepper driver order.
-   #define Z_STEPPER_ALIGN_STEPPER_XY { { 12, 145 }, { 260, 155 } }
+   #define Z_STEPPER_ALIGN_STEPPER_XY { { 12, 145 }, { 250, 155 } }
   #else
     // Amplification factor. Used to scale the correction step up or down in case
     // the stepper (spindle) position is farther out than the test point.
-    #define Z_STEPPER_ALIGN_AMP 1.2       // Use a value > 1.0 NOTE: This may cause instability!
+    #define Z_STEPPER_ALIGN_AMP 1       // Use a value > 1.0 NOTE: This may cause instability!
   #endif
 
   // On a 300mm bed a 5% grade would give a misalignment of ~1.5cm
-  #define G34_MAX_GRADE              1    // (%) Maximum incline that G34 will handle
-  #define Z_STEPPER_ALIGN_ITERATIONS 8    // Number of iterations to apply during alignment
+  #define G34_MAX_GRADE              2    // (%) Maximum incline that G34 will handle
+  #define Z_STEPPER_ALIGN_ITERATIONS 5    // Number of iterations to apply during alignment
   #define Z_STEPPER_ALIGN_ACC        0.02 // Stop iterating early if the accuracy is better than this
   #define RESTORE_LEVELING_AFTER_G34      // Restore leveling after G34 is done?
   // After G34, re-home Z (G28 Z) or just calculate it from the last probe heights?
@@ -771,11 +771,11 @@
 //
 // Add the G35 command to read bed corners to help adjust screws. Requires a bed probe.
 //
-//#define ASSISTED_TRAMMING
+#define ASSISTED_TRAMMING
 #if ENABLED(ASSISTED_TRAMMING)
 
   // Define positions for probing points, use the hotend as reference not the sensor.
-  #define TRAMMING_POINT_XY { {  20, 20 }, { 200,  20 }, { 200, 200 }, { 20, 200 } }
+  #define TRAMMING_POINT_XY { {  12, 29 }, { 270,  29 }, { 270, 260 }, { 10, 260 } }
 
   // Define positions names for probing points.
   #define TRAMMING_POINT_NAME_1 "Front-Left"
@@ -792,7 +792,7 @@
    *   M4: 40 = Clockwise, 41 = Counter-Clockwise
    *   M5: 50 = Clockwise, 51 = Counter-Clockwise
    */
-  #define TRAMMING_SCREW_THREAD 30
+  #define TRAMMING_SCREW_THREAD 40
 
 #endif
 
@@ -1708,32 +1708,32 @@
     // (e.g. 30), in steps of PTC_SAMPLE_RES (e.g. 5) with PTC_SAMPLE_COUNT (e.g. 10) samples.
 
     #define PTC_SAMPLE_START  32.0f
-    #define PTC_SAMPLE_RES    5.0f
+    #define PTC_SAMPLE_RES    2.0f
     #define PTC_SAMPLE_COUNT  10U
 
     // Bed temperature calibration builds a similar table.
 
-    //#define BTC_SAMPLE_START  60.0f
-    //#define BTC_SAMPLE_RES    5.0f
-    //#define BTC_SAMPLE_COUNT  10U
+    #define BTC_SAMPLE_START  60.0f
+    #define BTC_SAMPLE_RES    5.0f
+    #define BTC_SAMPLE_COUNT  10U
 
     // The temperature the probe should be at while taking measurements during bed temperature
     // calibration.
-    //#define BTC_PROBE_TEMP 30.0f
+    #define BTC_PROBE_TEMP 34.0f
 
     // Height above Z=0.0f to raise the nozzle. Lowering this can help the probe to heat faster.
     // Note: the Z=0.0f offset is determined by the probe offset which can be set using M851.
-    //#define PTC_PROBE_HEATING_OFFSET 0.5f
+    #define PTC_PROBE_HEATING_OFFSET 0.5f
 
     // Height to raise the Z-probe between heating and taking the next measurement. Some probes
     // may fail to untrigger if they have been triggered for a long time, which can be solved by
     // increasing the height the probe is raised to.
-    //#define PTC_PROBE_RAISE 15U
+    #define PTC_PROBE_RAISE 20U
 
     // If the probe is outside of the defined range, use linear extrapolation using the closest
     // point and the PTC_LINEAR_EXTRAPOLATION'th next point. E.g. if set to 4 it will use data[0]
     // and data[4] to perform linear extrapolation for values below PTC_SAMPLE_START.
-    //#define PTC_LINEAR_EXTRAPOLATION 4
+    #define PTC_LINEAR_EXTRAPOLATION 4
   #endif
 #endif
 
@@ -2252,7 +2252,7 @@
   #endif
 
   #if AXIS_IS_TMC(Z)
-    #define Z_CURRENT       900
+    #define Z_CURRENT       950
     #define Z_CURRENT_HOME  Z_CURRENT
     #define Z_MICROSTEPS     16
     #define Z_RSENSE          0.11
@@ -2260,7 +2260,7 @@
   #endif
 
   #if AXIS_IS_TMC(Z2)
-    #define Z2_CURRENT      900
+    #define Z2_CURRENT      950
     #define Z2_CURRENT_HOME Z2_CURRENT
     #define Z2_MICROSTEPS    16
     #define Z2_RSENSE         0.11
