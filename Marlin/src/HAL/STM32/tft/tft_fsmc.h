@@ -78,7 +78,6 @@ class TFT_FSMC {
     static void WriteMultiple(uint16_t Color, uint16_t Count) { static uint16_t Data; Data = Color; TransmitDMA(DMA_PINC_DISABLE, &Data, Count); }
 };
 
-
 #ifdef STM32F1xx
   #define FSMC_PIN_DATA   STM_PIN_DATA(STM_MODE_AF_PP, GPIO_NOPULL, AFIO_NONE)
 #elif defined(STM32F4xx)
